@@ -2,20 +2,24 @@ package br.com.dio.app.repositories.ui
 
 import android.os.Bundle
 import android.view.Menu
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.get
 import br.com.dio.app.repositories.R
 import br.com.dio.app.repositories.core.createDialog
 import br.com.dio.app.repositories.core.createProgressDialog
 import br.com.dio.app.repositories.core.hideSoftKeyboard
 import br.com.dio.app.repositories.databinding.ActivityMainBinding
 import br.com.dio.app.repositories.presentation.MainViewModel
+import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private val dialog by lazy { createProgressDialog() }
     private val viewModel by viewModel<MainViewModel>()
-    private val adapter by lazy { RepoListAdapter() }
+    private val adapter by lazy { RepoListAdapter(this) }
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
 
@@ -25,7 +29,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         setSupportActionBar(binding.toolbar)
         binding.rvRepos.adapter = adapter
         viewModel.repos.observe(this) {
-            when(it) {
+            when (it) {
                 MainViewModel.State.Loading -> dialog.show()
                 is MainViewModel.State.Error -> {
                     createDialog {
@@ -56,6 +60,12 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     override fun onQueryTextChange(newText: String?): Boolean {
         return true
+    }
+
+    fun setupUserView(name: String, url: String, image: String) {
+        binding.tvUserName.text = name
+        binding.tvUserUrl.text = url
+        Glide.with(binding.root.context).load(image).into(binding.ivUser)
     }
 
 

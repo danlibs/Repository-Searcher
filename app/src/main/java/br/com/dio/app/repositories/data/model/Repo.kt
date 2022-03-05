@@ -9,7 +9,5 @@ data class Repo (
     @SerializedName("stargazers_count")
     val stargazersCount: Long,
     val language: String,
-    @SerializedName("html_url")
-    val htmlURL: String,
     val description: String
 )

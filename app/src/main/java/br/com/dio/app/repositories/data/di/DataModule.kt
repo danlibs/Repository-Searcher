@@ -40,6 +40,7 @@ object DataModule {
             single {
                 createService<GithubService>(get(), get())
             }
+
         }
     }
 

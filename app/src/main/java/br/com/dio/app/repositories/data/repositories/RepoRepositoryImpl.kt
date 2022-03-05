@@ -5,7 +5,9 @@ import br.com.dio.app.repositories.data.services.GithubService
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 
-class RepoRepositoryImpl(private val service: GithubService) : RepoRepository {
+class RepoRepositoryImpl(
+    private val service: GithubService
+) : RepoRepository {
 
     override suspend fun listRepositories(user: String) = flow {
         try {
@@ -15,4 +17,5 @@ class RepoRepositoryImpl(private val service: GithubService) : RepoRepository {
             throw RemoteException(ex.message ?: "Não foi possível fazer a busca no momento.")
         }
     }
+
 }

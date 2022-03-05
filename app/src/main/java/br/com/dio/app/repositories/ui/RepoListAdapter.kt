@@ -9,7 +9,8 @@ import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.databinding.ItemRepoBinding
 import com.bumptech.glide.Glide
 
-class RepoListAdapter : ListAdapter<Repo, RepoListAdapter.ViewHolder>(DiffCallback()) {
+class RepoListAdapter(val mainActivity: MainActivity) : ListAdapter<Repo, RepoListAdapter.ViewHolder>(DiffCallback()) {
+    private var done = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -28,7 +29,7 @@ class RepoListAdapter : ListAdapter<Repo, RepoListAdapter.ViewHolder>(DiffCallba
             binding.tvRepoDescription.text = item.description
             binding.tvRepoLanguage.text = item.language
             binding.chipStars.text = item.stargazersCount.toString()
-            Glide.with(binding.root.context).load(item.owner.avatarURL).into(binding.ivOwner)
+            mainActivity.setupUserView(item.owner.login, item.owner.htmlURL, item.owner.avatarURL)
         }
     }
 }
