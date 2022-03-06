@@ -1,5 +1,5 @@
 # Repository Searcher
-Android app to seach for someone's Github repositories. Just click the search button and type a Github user's name, then the app will show that person's repositories.
+Android app to seach for someone's Github repositories. Just click the search button and type a Github user's name, then the app will show that person's repositories. To make the searches, the app uses the [Github API](https://docs.github.com/en/rest).
 
 ## Screenshots
  - Start screen
